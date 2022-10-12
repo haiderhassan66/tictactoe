@@ -11,7 +11,9 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
 
         startBtn.setOnClickListener{
-            startActivity(Intent(this, GameActivity::class.java))
+            val intent = Intent(this, GameActivity::class.java)
+            finish()
+            startActivity(intent)
         }
     }
 }

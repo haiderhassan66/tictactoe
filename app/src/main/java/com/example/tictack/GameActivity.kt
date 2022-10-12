@@ -150,7 +150,9 @@ class GameActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.winner_dialog)
             dialog.winner.text = "Player 1 win the Game"
             dialog.exitBtn.setOnClickListener{
-                startActivity(Intent(this, StartActivity::class.java))
+                val intent = Intent(this, StartActivity::class.java)
+                finish()
+                startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
                 val intent = Intent(this, GameActivity::class.java)
@@ -165,7 +167,9 @@ class GameActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.winner_dialog)
             dialog.winner.text = "Player 2 win the Game"
             dialog.exitBtn.setOnClickListener{
-                startActivity(Intent(this, StartActivity::class.java))
+                val intent = Intent(this, StartActivity::class.java)
+                finish()
+                startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
                 val intent = Intent(this, GameActivity::class.java)
@@ -180,7 +184,9 @@ class GameActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.winner_dialog)
             dialog.winner.text = "No Player won the Game"
             dialog.exitBtn.setOnClickListener{
-                startActivity(Intent(this, StartActivity::class.java))
+                val intent = Intent(this, StartActivity::class.java)
+                finish()
+                startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
                 val intent = Intent(this, GameActivity::class.java)
