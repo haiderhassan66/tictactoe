@@ -12,8 +12,15 @@ class StartActivity : AppCompatActivity() {
 
         startBtn.setOnClickListener{
             val intent = Intent(this, GameActivity::class.java)
-            finish()
             startActivity(intent)
         }
+
+        computer.setOnClickListener{
+            startActivity(Intent(this, ComputerGame::class.java))
+        }
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 }

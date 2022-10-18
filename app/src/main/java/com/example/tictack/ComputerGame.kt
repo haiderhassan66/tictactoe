@@ -4,63 +4,78 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
-import kotlinx.android.synthetic.main.activity_game.view.*
 import kotlinx.android.synthetic.main.winner_dialog.*
-import java.util.*
-import kotlin.collections.ArrayList
 
-class GameActivity : AppCompatActivity() {
-
-//    lateinit var select : Button
-//    var cells = ArrayList<Int>()
+class ComputerGame : AppCompatActivity() {
+    lateinit var select : Button
+    var cells = ArrayList<Int>()
+    var winnerSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        setContentView(R.layout.activity_computer_game)
+
+        cells.add(1)
+        cells.add(2)
+        cells.add(3)
+        cells.add(4)
+        cells.add(5)
+        cells.add(6)
+        cells.add(7)
+        cells.add(8)
+        cells.add(9)
+
+        Log.e("er", cells.size.toString())
+
+
+        if(activePlayer == 2){
+            computer()
+        }
 
     }
 
-//    private fun computer() {
-//        count++
-//        cells.shuffle()
-//        var cellId = cells.get(0)
-//        when(cellId){
-//            1 -> select = findViewById(R.id.bu1)
-//            2 -> select = findViewById(R.id.bu2)
-//            3 -> select = findViewById(R.id.bu3)
-//            4 -> select = findViewById(R.id.bu4)
-//            5 -> select = findViewById(R.id.bu5)
-//            6 -> select = findViewById(R.id.bu6)
-//            7 -> select = findViewById(R.id.bu7)
-//            8 -> select = findViewById(R.id.bu8)
-//            9 -> select = findViewById(R.id.bu9)
-//        }
-//
-//        select.text = "0"
-//        select.setBackgroundResource(R.drawable.playertwobox)
-//        player2.add(cellId)
-//        activePlayer = 1
-////        Handler(Looper.getMainLooper()).postDelayed({
-////            select.text = "0"
-////            select.setBackgroundResource(R.drawable.playertwobox)
-////            player2.add(cellId)
-////            activePlayer = 1
-////        }, 500)
-//
-////        player2.add(cellId)
-////        activePlayer = 1
-//
-//        select.isEnabled = false
-//
-//        cells.remove(cellId)
-//
-//    }
+    private fun computer() {
+        count++
+        cells.shuffle()
+        var cellId = cells.get(0)
+        when(cellId){
+            1 -> select = findViewById(R.id.bu1)
+            2 -> select = findViewById(R.id.bu2)
+            3 -> select = findViewById(R.id.bu3)
+            4 -> select = findViewById(R.id.bu4)
+            5 -> select = findViewById(R.id.bu5)
+            6 -> select = findViewById(R.id.bu6)
+            7 -> select = findViewById(R.id.bu7)
+            8 -> select = findViewById(R.id.bu8)
+            9 -> select = findViewById(R.id.bu9)
+        }
+
+        Log.e("err", winnerSelected.toString())
+        if(!winnerSelected){
+            select.text = "0"
+            select.setBackgroundResource(R.drawable.playertwobox)
+            player2.add(cellId)
+            activePlayer = 1
+        }
+
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            select.text = "0"
+//            select.setBackgroundResource(R.drawable.playertwobox)
+//            player2.add(cellId)
+//            activePlayer = 1
+//        }, 500)
+
+
+
+        select.isEnabled = false
+
+        cells.remove(cellId)
+
+    }
 
 
     fun buClick(view: View){
@@ -103,21 +118,16 @@ class GameActivity : AppCompatActivity() {
 
     fun playGame(cellID: Int, buSelected: Button){
         if(activePlayer==1){
-            //count++
+            count++
             buSelected.text = "X"
             buSelected.setBackgroundResource(R.drawable.playeronebox)
             player1.add(cellID)
             activePlayer = 2
-//            if(cells.size>1){
-//                cells.remove(cellID)
-//                computer()
-//            }
-        } else {
-           //computer()
-            buSelected.text = "0"
-            buSelected.setBackgroundResource(R.drawable.playertwobox)
-            player2.add(cellID)
-            activePlayer = 1
+            if(cells.size>1){
+                cells.remove(cellID)
+                checkWinner()
+                computer()
+            }
         }
 
         buSelected.isEnabled = false
@@ -126,7 +136,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun checkWinner(){
-        count++
+        // count++
         var winner = -1
 
         //row 1
@@ -200,13 +210,14 @@ class GameActivity : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.winner_dialog)
             dialog.winner.text = "Player 1 win the Game"
+            winnerSelected = true;
             dialog.exitBtn.setOnClickListener{
                 val intent = Intent(this, StartActivity::class.java)
 //                finish()
                 startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
-                val intent = Intent(this, GameActivity::class.java)
+                val intent = Intent(this, ComputerGame::class.java)
 //                finish()
                 startActivity(intent)
             }
@@ -217,13 +228,14 @@ class GameActivity : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.winner_dialog)
             dialog.winner.text = "Player 2 win the Game"
+            winnerSelected = true;
             dialog.exitBtn.setOnClickListener{
                 val intent = Intent(this, StartActivity::class.java)
 //                finish()
                 startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
-                val intent = Intent(this, GameActivity::class.java)
+                val intent = Intent(this, ComputerGame::class.java)
 //                finish()
                 startActivity(intent)
             }
@@ -240,7 +252,7 @@ class GameActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             dialog.playagainBtn.setOnClickListener{
-                val intent = Intent(this, GameActivity::class.java)
+                val intent = Intent(this, ComputerGame::class.java)
 //                finish()
                 startActivity(intent)
             }
